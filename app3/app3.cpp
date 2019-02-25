@@ -5,23 +5,44 @@ using namespace std;
 
 mutex m;
 int i=0;
+
+
+// Implementing RAII pattern
+template<class T>
+class guard
+{
+private:
+	T &m; // reference variable 
+public:
+	guard(T &m) : m(m) // initialize refernce variable
+	{
+		m.lock(); // call the lock in Ctor which is guarnteed to be called
+	}
+	~guard()
+	{
+		m.unlock(); // call the unlock in Dtor which is guarnteed to be called
+	}
+};
+
 void f1()
 {
-    m.lock();
+    //m.lock();
+    guard<mutex> g1(m);
     i++;
     cout<<"f1 "<<i<<endl;
     i++;
     cout<<"f1 "<<i<<endl;
-    m.unlock();
+    //m.unlock();
 }
 void f2()
 {
-    m.lock();
+    //m.lock();
+    guard<mutex> g2(m);
     i++;
     cout<<"f2 "<<i<<endl;
     i++;
     cout<<"f2 "<<i<<endl;
-    m.unlock();
+    //m.unlock();
 }
 int main()
 {

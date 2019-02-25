@@ -6,7 +6,7 @@ using namespace std;
 mutex m;
 int i=0;
 
-
+// To run this code in Ubuntu use :- g++ -pthread -std=c++11 app3.cpp -o app3
 // Implementing RAII pattern
 template<class T>
 class guard
@@ -27,7 +27,8 @@ public:
 void f1()
 {
     //m.lock();
-    guard<mutex> g1(m);
+    //guard<mutex> g1(m);
+    lock_guard<mutex> g1(m);
     i++;
     cout<<"f1 "<<i<<endl;
     i++;
@@ -37,7 +38,8 @@ void f1()
 void f2()
 {
     //m.lock();
-    guard<mutex> g2(m);
+    //guard<mutex> g2(m);
+    lock_guard<mutex> g2(m);
     i++;
     cout<<"f2 "<<i<<endl;
     i++;

@@ -4,15 +4,24 @@
 using namespace std;
 
 mutex m;
+int i=0;
 void f1()
 {
-    cout<<"f1"<<endl;
-    cout<<"f1"<<endl;
+    m.lock();
+    i++;
+    cout<<"f1 "<<i<<endl;
+    i++;
+    cout<<"f1 "<<i<<endl;
+    m.unlock();
 }
 void f2()
 {
-    cout<<"f2"<<endl;
-    cout<<"f2"<<endl;
+    m.lock();
+    i++;
+    cout<<"f2 "<<i<<endl;
+    i++;
+    cout<<"f2 "<<i<<endl;
+    m.unlock();
 }
 int main()
 {
